@@ -1,0 +1,20 @@
+package graphics2016.light;
+
+import graphics2016.Color4;
+import graphics2016.Vector3;
+
+public class DirectionalLight extends Light {
+
+	public Vector3 direction;
+
+	public DirectionalLight(Vector3 direction, Color4 color) {
+		this.direction = direction;
+		this.color = color;
+	}
+
+	public DirectionalLight(Vector3 direction, Color4 color, float intensity) {
+		this.direction = direction;
+		this.color = color;
+		this.color.a = intensity;
+	}
+}

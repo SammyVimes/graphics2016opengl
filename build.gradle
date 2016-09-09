@@ -1,0 +1,10 @@
+allprojects {
+    project.group = 'com.mobialia'
+    project.version = '0.9.3'
+
+    repositories {
+        mavenLocal()
+        maven { url 'https://dl.bintray.com/mobialia/maven' }
+        jcenter()
+    }
+}

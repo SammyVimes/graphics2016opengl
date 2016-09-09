@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+archivesBaseName = 'graphics2016-utils'
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+publishing {
+    publications {
+        jmini3dCore(MavenPublication) {
+            from components.java
+            artifactId = 'graphics2016-utils'
+            artifact sourcesJar
+        }
+    }
+}

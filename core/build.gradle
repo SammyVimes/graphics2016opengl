@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+publishing {
+    publications {
+        jmini3dCore(MavenPublication) {
+            from components.java
+            artifactId = 'graphics2016-core'
+            artifact sourcesJar
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['jmini3dCore']
+    pkg {
+        repo = 'maven'
+        name = 'com.mobialia.graphics2016-core'
+        desc = 'Minimalistic OpenGL2 3D engine for mobile apps that supports Android and GWT'
+        userOrg = 'mobialia'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/albertoruibal/graphics2016.git'
+        githubRepo = 'albertoruibal/graphics2016'
+        publish = true
+    }
+}
